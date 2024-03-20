@@ -5,6 +5,7 @@ from datetime import datetime
 def write_on_file(text, fileName):
     time_and_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     formatted_text = f"{time_and_date}: {text}"
+    print(formatted_text)
     try:
         with open(fileName, 'a') as file:
             file.write(formatted_text + '\n')
