@@ -22,9 +22,8 @@ jobs:
         cd scripts 
         python writeOnFile.py > test.txt
 
-    - name: Add file
-      uses: ad-m/github-push-action@master
+    - name: Upload file
+      uses: actions/upload-artifact@v3
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref }}
-        directory: ./scripts
+        name: output-file
+        path: test.txt
