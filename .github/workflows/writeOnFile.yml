@@ -18,7 +18,7 @@ jobs:
         cd scripts
         ./writeOnFile.exe > test.txt
     - name: Upload artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: my-art
-        path: scripts/test.txt
+        path: tmp
