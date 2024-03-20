@@ -16,4 +16,4 @@ jobs:
     - name: Run Script
       run: |
         cd scripts
-        writeOnFile.exe
+        .\writeOnFile.exe
