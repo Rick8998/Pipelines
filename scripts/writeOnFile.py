@@ -2,29 +2,19 @@ import os
 import sys
 from datetime import datetime
 
-def write_on_file(text, file_path):
+def write_on_file(text, fileName):
     time_and_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     formatted_text = f"{time_and_date}: {text}"
+    try:
+        # Apre il file in modalità append se esiste, altrimenti lo crea
+        with open(fileName, 'a') as file:
+            file.write(formatted_text + '\n')
+    except FileNotFoundError:
+        # Se il file non esiste, lo crea e ci scrive sopra
+        with open(fileName, 'w') as file:
+            file.write(formatted_text + '\n')
 
-    if os.path.exists(file_path):
-        with open(file_path, 'a') as file:
-            file.write(formatted_text)
-    else:
-        with open(file_path, 'w') as file:
-            file.write(formatted_text)
-
-
-if __name__ == "__main__":
-    # Check file path
-    if len(sys.argv) != 2:
-        print("Usage: python script.py <percorso_del_file>")
-        sys.exit(1)
-
-    # Get file path from cmd line
-    file_path = sys.argv[1]
-
-    # Text
-    text = "Test\n"
-
-    # Chiama la funzione per scrivere sul file
-    write_on_file(text, file_path)
+# Esempio di utilizzo
+testo_da_scrivere = "Test"
+nome_del_file = "test.txt"
+write_on_file(testo_da_scrivere, nome_del_file)
