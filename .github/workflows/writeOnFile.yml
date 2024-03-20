@@ -26,4 +26,4 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: output-file
-        path: test.txt
+        path: scripts/test.txt
