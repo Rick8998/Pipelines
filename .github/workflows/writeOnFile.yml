@@ -13,4 +13,4 @@ jobs:
     - name: Run Script
       run: |
         cd scripts
-        python writeOnFile.py > test.txt
+        python writeOnFile.py
