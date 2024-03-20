@@ -1,8 +1,26 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: Hello_world_workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
 jobs:
-  Explore-GitHub-Actions:
-    runs-on: [windows]
+  hello:
+    runs-on: ubuntu-latest
     steps:
-      - run: echo "The job was triggered by a ${{github.event_name}} event"
+      - uses: actions/checkout@v2
+      - name: hello world
+        run: echo "Hello World"
+        shell: bash
+
+  goodbye:
+    runs-on: ubuntu-latest
+    steps:
+      - name: goodbye world
+        run: echo "Goodbye World"
+        shell: bash
