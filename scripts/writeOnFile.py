@@ -10,7 +10,7 @@ def write_on_file(text, fileName):
     try:
         with open(fileName, 'a') as file:
             file.write(formatted_text + '\n')
-    except FileNotFoundError:
+    except Exception:
         with open(fileName, 'w') as file:
             file.write(formatted_text + '\n')
 
