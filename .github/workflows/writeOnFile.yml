@@ -19,7 +19,7 @@ jobs:
     
     - name: Create Folder
       run: |
-        mkdir -p Pipelines/tmp
+        mkdir -p ${{ github.workspace }}/tmp
 
     - name: Run Python Script
       run: |
