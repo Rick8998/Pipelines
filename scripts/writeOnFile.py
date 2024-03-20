@@ -6,10 +6,6 @@ def write_on_file(text, file_path):
     time_and_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     formatted_text = f"{time_and_date}: {text}"
 
-    directory = os.path.dirname(file_path)
-    if not os.path.exists(directory):
-        os.makedirs(directory)
-
     if os.path.exists(file_path):
         with open(file_path, 'a') as file:
             file.write(formatted_text)
