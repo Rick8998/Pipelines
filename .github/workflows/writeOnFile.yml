@@ -13,8 +13,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Create file
-      run: touch test.txt
     - name: Run Script
       run: |
         cd scripts
@@ -23,4 +21,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: my-art
-        path: tmp
+        path: tmp/test.txt
