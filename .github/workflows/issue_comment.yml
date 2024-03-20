@@ -30,7 +30,7 @@ jobs:
       - name: Crete comment with comment-with-api
         run: |
           gh api -X POST \
-            "https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments" \
+            https://api.github.com/repos/${ORGANIZATION}/${REPOSITORY}/issues/${ISSUE_NUMBER}/comments \
             -f body='Comment but from the API call (not from an action)'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
