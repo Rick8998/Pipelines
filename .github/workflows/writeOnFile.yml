@@ -16,4 +16,4 @@ jobs:
     - name: Run Script
       run: |
         cd scripts/dist/writeOnFile
-        ./writeOnFile.exe
+        .\writeOnFile.exe
