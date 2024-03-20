@@ -20,5 +20,14 @@ jobs:
     - name: Run Python Script
       run: |
         cd scripts 
-        python writeOnFile.py test.txt
+        python writeOnFile.py test.txt > test.txt
 
+  upload_artifacts:
+    needs: run_python_script
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-file
+          path: output.txt
