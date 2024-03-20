@@ -8,7 +8,7 @@ def write_on_file(text, fileName):
     formatted_text = f"{time_and_date}: {text}"
     print(formatted_text)
     try:
-        with open(fileName, 'a') as file:
+        with open(fileName, 'w') as file:
             file.write(formatted_text + '\n')
     except Exception:
         with open(fileName, 'w') as file:
