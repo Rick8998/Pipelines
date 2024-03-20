@@ -3,6 +3,7 @@ import sys
 from datetime import datetime
 
 def write_on_file(text, fileName):
+    print("TEST 1")
     time_and_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     formatted_text = f"{time_and_date}: {text}"
     print(formatted_text)
