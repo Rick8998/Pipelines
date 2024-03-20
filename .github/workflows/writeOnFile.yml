@@ -13,6 +13,8 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+    - name: Create file
+      run: touch test.txt
     - name: Run Script
       run: |
         cd scripts
