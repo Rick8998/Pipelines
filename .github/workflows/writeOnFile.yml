@@ -17,13 +17,14 @@ jobs:
       with:
         python-version: '3.10.11'
 
-    - name: Run Python Script
-      run: |
-        cd scripts 
-        python writeOnFile.py > test.txt
+    - name: Make dir
+      run: mkdir -p ./scripts/tmpFiles
 
-    - name: Upload file
-      uses: actions/upload-artifact@v3
+    - name: Run script
+      run: python writeOnFiles.py > ./tmpFiles/test.txt
+    - uses: actions/upload-artifact@v4
       with:
-        name: output-file
-        path: scripts/test.txt
+        name: test-artifact
+        path: ./tmpFiles/test.txt
+        
+      
