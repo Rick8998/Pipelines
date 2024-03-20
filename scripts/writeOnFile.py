@@ -1,7 +1,7 @@
 import os
 import sys
 from datetime import datetime
-print("TEST")
+
 def write_on_file(text, file_path):
     time_and_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     formatted_text = f"{time_and_date}: {text}"
