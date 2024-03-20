@@ -21,3 +21,11 @@ jobs:
       run: |
         cd scripts 
         python writeOnFile.py ./test.txt
+
+    - name: Save txt
+      uses: actions/upload-artifact@v2
+      with:
+        name: txt
+        path: |
+          "tmp/test.txt"
+
