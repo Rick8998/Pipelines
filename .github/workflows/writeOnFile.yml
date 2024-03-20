@@ -5,11 +5,12 @@ on:
     
 
 jobs:
-  make-dir:
+  run-python-script:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: create dir
+    - name: Run Script
       run: |
-        mkdir -p Pipelines/tmpFiles
+        cd scripts
+        python writeOnFile.py > test.txt
