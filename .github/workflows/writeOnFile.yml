@@ -2,6 +2,9 @@ name: Run Python Script
 
 on:
   workflow_dispatch:
+defaults:
+  run:
+    shell: powershell
     
 
 jobs:
