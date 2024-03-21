@@ -10,16 +10,15 @@ defaults:
 jobs:
   run-python-script:
     runs-on: windows-latest
-    permissions: write-all
     steps:
     - name: Checkout
       uses: actions/checkout@v4
     - name: Run Script
       run: |
         cd scripts
-        ./writeOnFile.exe > test.txt
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: my-art
-        path: test.txt
+        ./writeOnFile.exe
+#    - name: Upload artifact
+#      uses: actions/upload-artifact@v4
+#      with:
+#        name: my-art
+#        path: test.txt
