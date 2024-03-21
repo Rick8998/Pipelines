@@ -17,7 +17,11 @@ jobs:
       run: |
         wd
         ls -la scripts
-        test -f scripts/writeOnFile.exe && echo "File 'writeOnFile.exe' found" || echo "File 'writeOnFile.exe' not found"
+        if (Test-Path "scripts/writeOnFile.exe") { 
+          echo "File 'writeOnFile.exe' found" 
+        } else { 
+          echo "File 'writeOnFile.exe' not found" 
+        }
     
     - name: Run Script
       run: |
