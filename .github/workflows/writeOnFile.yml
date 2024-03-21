@@ -15,10 +15,10 @@ jobs:
       - name: Run Script
         run: |
           cd scripts
-          .\writeOnFile.exe >  "${{github.workspace}}\test.txt"
+          .\writeOnFile.exe >  "${{github.workspace}}"
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: my-art
-          path: ${{github.workspace}}\test.txt
+          path: ${{github.workspace}}
           retention-days: 1
