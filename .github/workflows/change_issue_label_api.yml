@@ -1,0 +1,19 @@
+name: Change issue label
+
+on:
+    issues:
+      types: [labeled]
+defaults:
+    run:
+        shell: powershell
+
+jobs:
+    change-label:
+        runs-on: windows-latest
+        steps:
+            - name: dump github context
+              run: echo '${{ toJson(github.event) }}'
+            
+            - name: Check issue label
+              if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
+              run: echo "Issue has a specific label"
