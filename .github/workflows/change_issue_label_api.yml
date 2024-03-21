@@ -14,7 +14,7 @@ jobs:
       OWNER: ${{ github.event.repository.owner.login }}
       REPO: ${{ github.event.repository.name }}
       ISSUE_NUMBER: ${{ github.event.issue.number }}
-      MY_TOKEN: ${{ secrets.TOKEN_1 }}
+      
     steps:
       - name: dump github context
         run: echo '${{ toJson(github.event) }}'
@@ -25,6 +25,8 @@ jobs:
 
             
       - name: Comment labeled issue
+        env: 
+            MY_TOKEN: ${{ secrets.TOKEN_1 }}
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         run: |
             # GitHub CLI api
