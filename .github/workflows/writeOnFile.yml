@@ -13,9 +13,12 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v4
-    - name: Set up permissions
+    - name: Debug
       run: |
-        chmod 777 scripts
+        wd
+        ls -la scripts
+        test -f scripts/writeOnFile.exe && echo "File 'writeOnFile.exe' found" || echo "File 'writeOnFile.exe' not found"
+    
     - name: Run Script
       run: |
         cd scripts
