@@ -7,7 +7,7 @@ def write_on_file(fileName):
     iteration = 11
     iter_count = 1
     while iter_count < iteration:
-        text = "Test "+iter_count
+        text = "Test "+ str(iter_count)
         time_and_date = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         formatted_text = f"{time_and_date}: {text}"
         if os.path.exists(tmp_dir):
