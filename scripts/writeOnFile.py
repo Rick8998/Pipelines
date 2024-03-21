@@ -10,5 +10,9 @@ def write_on_file(text, fileName):
    
 
 testo_da_scrivere = "Test"
-path_to_file = "test.txt"
+tmp_dir = "tmp"
+if not os.path.exists(tmp_dir):
+    os.makedirs(tmp_dir, exist_ok=True)
+
+path_to_file = os.path.join(tmp_dir, "test.txt")
 write_on_file(testo_da_scrivere, path_to_file)
