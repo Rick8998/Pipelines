@@ -19,9 +19,11 @@ jobs:
     steps:
       - name: Install GitHub CLI
         run: |
-          Invoke-WebRequest -Uri https://cli.github.com/packages/githubcli/installer -OutFile github-installer.ps1
-          .\github-installer.ps1 -InstallLocation $env:ProgramFiles\GitHubCLI -Quiet
-          Remove-Item github-installer.ps1
+          curl -fsSL https://cli.github.com/packages/githubcli/installer -o github-installer.sh
+          chmod +x github-installer.sh
+          ./github-installer.sh install -d $env:ProgramFiles\GitHubCLI -b $env:ProgramFiles\GitHubCLI\bin
+          rm github-installer.sh
+      
       - name: dump github context
         run: echo '${{ toJson(github.event) }}'
 
