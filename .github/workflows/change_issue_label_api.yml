@@ -12,7 +12,7 @@ jobs:
     runs-on: windows-latest
     env:
       OWNER: ${{ github.event.repository.owner.login }}
-      REPO: ${{ github.event.repository }}
+      REPO: ${{ github.event.repository.name }}
       ISSUE_NUMBER: ${{ github.event.issue.number }}
     steps:
       - name: dump github context
