@@ -17,13 +17,6 @@ jobs:
   change-label:
     runs-on: windows-latest
     steps:
-      - name: Install GitHub CLI
-        run: |
-          curl -fsSL https://cli.github.com/packages/githubcli/installer -o github-installer.sh
-          chmod +x github-installer.sh
-          ./github-installer.sh install -d $env:ProgramFiles\GitHubCLI -b $env:ProgramFiles\GitHubCLI\bin
-          rm github-installer.sh
-      
       - name: dump github context
         run: echo '${{ toJson(github.event) }}'
 
