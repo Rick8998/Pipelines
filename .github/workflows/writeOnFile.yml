@@ -26,10 +26,10 @@ jobs:
     - name: Run Script
       run: |
         cd scripts
-        mkdir ${{ github.workspace }}\tmp
-        .\writeOnFile.exe | Out-File -FilePath "${{ github.workspace }}\tmp\test.txt"
+        mkdir $env:GITHUB_WORKSPACE\tmp
+        .\writeOnFile.exe | Out-File -FilePath "$env:GITHUB_WORKSPACE\tmp\test.txt"
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: my-art
-        path: ${{ github.workspace }}\tmp\test.txt
+        path: $env:GITHUB_WORKSPACE\tmp\test.txt
