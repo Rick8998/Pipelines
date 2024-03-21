@@ -17,7 +17,7 @@ jobs:
       - name: Checkout scripts repo
         uses: actions/checkout@v4
         with:
-          repository: ${{github.repository_owner}}\scripts
+          repository: ${{github.repository_owner}}\Pipelines\scripts
           path: scripts
       - name: Run Script
         run: |
