@@ -32,3 +32,4 @@ jobs:
         with:
           name: my-art
           path: ${{github.workspace}}\tmp\test.txt
+          retention-days: 1
