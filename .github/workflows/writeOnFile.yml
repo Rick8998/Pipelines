@@ -26,7 +26,7 @@ jobs:
     - name: Run Script
       run: |
         cd scripts
-        ./writeOnFile.exe > ${{ github.workspace }}/scripts/test.txt
+        Invoke-Expression -Command ".\writeOnFile.exe" | Out-File -FilePath "test.txt"
 #    - name: Upload artifact
 #      uses: actions/upload-artifact@v4
 #      with:
