@@ -5,31 +5,30 @@ on:
 defaults:
   run:
     shell: powershell
-    
 
 jobs:
   run-python-script:
     runs-on: windows-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Debug
-      run: |
-        pwd
-        Get-ChildItem -Force -Path scripts
-        if (Test-Path "scripts/writeOnFile.exe") { 
-          echo "File 'writeOnFile.exe' found" 
-        } else { 
-          echo "File 'writeOnFile.exe' not found" 
-        }
-    
-    - name: Run Script
-      run: |
-        cd scripts
-        mkdir $env:GITHUB_WORKSPACE\tmp
-        .\writeOnFile.exe | Out-File -FilePath "$env:GITHUB_WORKSPACE\tmp\test.txt"
-    - name: Upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: my-art
-        path: .\tmp\test.txt
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Debug
+        run: |
+          pwd
+          Get-ChildItem -Force -Path scripts
+          if (Test-Path "scripts/writeOnFile.exe") { 
+            echo "File 'writeOnFile.exe' found" 
+          } else { 
+            echo "File 'writeOnFile.exe' not found" 
+          }
+
+      - name: Run Script
+        run: |
+          cd scripts
+          mkdir ${{github.workspace}}\tmp
+          .\writeOnFile.exe >  "${{github.workspace}}\tmp\test.txt"
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: my-art
+          path: ${{github.workspace}}\tmp\test.txt
