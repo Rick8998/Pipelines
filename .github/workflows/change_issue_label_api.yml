@@ -14,7 +14,7 @@ jobs:
       OWNER: ${{ github.event.repository.owner.login }}
       REPO: ${{ github.event.repository.name }}
       ISSUE_NUMBER: ${{ github.event.issue.number }}
-      GH_TOKEN: ${{ secrets.TEST_TOKEN }}
+      GH_TOKEN: ${{ secrets.TOKEN_1 }}
     steps:
       - name: dump github context
         run: echo '${{ toJson(github.event) }}'
