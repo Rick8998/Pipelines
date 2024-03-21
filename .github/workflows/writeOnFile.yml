@@ -16,7 +16,7 @@ jobs:
           path: main
       - name: Run Script
         run: |
-          
+          cd scripts
           mkdir ${{github.workspace}}\tmp
           .\writeOnFile.exe >  "${{github.workspace}}\tmp\test.txt"
       - name: Upload artifact
