@@ -15,10 +15,10 @@ jobs:
       - name: Run Script
         run: |
           cd scripts
-          .\writeOnFile.exe >  test.txt
+          .\writeOnFile.exe >  tmp/test.txt
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: my-art
-          path: test.txt
+          path: tmp/test.txt
           retention-days: 1
