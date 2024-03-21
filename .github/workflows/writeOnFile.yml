@@ -16,7 +16,7 @@ jobs:
     - name: Debug
       run: |
         pwd
-        ls -la scripts
+        Get-ChildItem -Force -Path scripts
         if (Test-Path "scripts/writeOnFile.exe") { 
           echo "File 'writeOnFile.exe' found" 
         } else { 
