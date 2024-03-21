@@ -12,16 +12,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Debug
-        run: |
-          pwd
-          Get-ChildItem -Force -Path scripts
-          if (Test-Path "scripts/writeOnFile.exe") { 
-            echo "File 'writeOnFile.exe' found" 
-          } else { 
-            echo "File 'writeOnFile.exe' not found" 
-          }
-
+        with:
+          path: main
+      - name: Checkout scripts repo
+        uses: actions/checkout@v4
+        with:
+          repository: scripts
+          path: scripts
       - name: Run Script
         run: |
           cd scripts
