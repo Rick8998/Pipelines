@@ -13,14 +13,14 @@ jobs:
         runs-on: windows-latest
 
         steps:
-            - name: Block pull request
-              run: |
-                echo "This pull request ha been blocked"
+            
             - name: Open issue
               env:
                 GH_TOKEN: ${{secrets.MY_TOKEN}}
                 OWNER: ${{ github.event.repository.owner.login }}
                 REPO: ${{ github.event.repository.name }}
+                PULL_REQ_ID: ${{github.event.pull_request.id}}
+                PULL_REQ_INFO: ${{github.event.pull_request.title}}
               run: |
                 $headers = @{
                     "Authorization" = "Bearer $env:GH_TOKEN"
@@ -28,7 +28,15 @@ jobs:
                 $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues"
                 $body = @{
                     title = "Issue opened from pull request"
-                    body = "You cannot make a pull request now"
+                    body = "You cannot make a pull request now
+                            PULL REQUEST INFO:
+                                $env:PULL_REQ_ID
+                                $env:PULL_REQ_INFO"
                     labels = @("invalid")
                 } | ConvertTo-Json
                 Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
+
+            - name: Block pull request
+              run: |
+                echo "This pull request ha been blocked"
+                exit 1
