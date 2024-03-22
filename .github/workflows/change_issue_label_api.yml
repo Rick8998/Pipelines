@@ -27,6 +27,7 @@ jobs:
           REPO: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
+          gh auth login
           # GitHub CLI api
           # https://cli.github.com/manual/gh_api
           
