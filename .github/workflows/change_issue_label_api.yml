@@ -27,7 +27,7 @@ jobs:
           REPO: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          Invoke-RestMethod -L `
+          Invoke-WebRequest -L `
             -X POST `
             -H "Accept: application/vnd.github+json" `
             -H "Authorization: Bearer ${{secrets.TOKEN_1}}" `
