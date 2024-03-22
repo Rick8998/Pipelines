@@ -22,19 +22,17 @@ jobs:
       - name: Add labels
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         env:
-          MY_TK: ${{secrets.MY_TOKEN}}
-          GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          GH_TOKEN: ${{secrets.MY_TOKEN}}
           OWNER: ${{ github.event.repository.owner.login }}
           REPO: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          # GitHub CLI api
-          # https://cli.github.com/manual/gh_api
-          
-          gh api `
-            --method POST `
-            -H "Accept: application/vnd.github+json" `
-            -H "X-GitHub-Api-Version: 2022-11-28" `
-            -H "Authorization: Bearer $MY_TK" `
-            repos/$OWNER/$REPO/issues/$ISSUE_NUMBER/labels `
-            -f "labels[]=bug" -f "labels[]=enhancement" 
+          $headers = @{
+            "Authorization" = "Bearer $env:GH_TOKEN"
+          }
+          $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues/$env:ISSUE_NUMBER/labels"
+          echo $uri
+          $body = @{
+            labels = @("bug", "enhancement")
+          } | ConvertTo-Json
+          Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
