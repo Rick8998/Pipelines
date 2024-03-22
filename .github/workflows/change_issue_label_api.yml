@@ -22,7 +22,7 @@ jobs:
       - name: Add labels
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         env:
-          GH_TOKEN: ${{secrets.TRY_TOKEN}}
+          GH_TOKEN: ${{secrets.TEST_TOKEN}}
           OWNER: ${{ github.event.repository.owner.login }}
           REPO: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
