@@ -1,0 +1,36 @@
+name: Run Python Script
+
+on:
+  pull_request:
+    branches:
+        - main
+defaults:
+  run:
+    shell: powershell
+
+jobs:
+    block-pull-req:
+        runs-on: windows-latest
+
+        steps:
+            - name: Block pull request
+              run: |
+                echo "This pull request ha been blocked"
+                exit 1
+
+            - name: Open issue
+              env:
+                GH_TOKEN: ${{secrets.MY_TOKEN}}
+                OWNER: ${{ github.event.repository.owner.login }}
+                REPO: ${{ github.event.repository.name }}
+              run: |
+                headers = @{
+                    "Authorization" = "Bearer $env:GH_TOKEN"
+                }
+                $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues"
+                $body = @{
+                    title = "Issue opened from pull request"
+                    body = "You cannot make a pull request now"
+                    labels = @("invalid")
+                } | ConvertTo-Json
+                Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
