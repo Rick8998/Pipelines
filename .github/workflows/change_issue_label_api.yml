@@ -8,7 +8,7 @@ defaults:
     shell: powershell
 
 jobs:
-  add-labels:
+  remove-add-labels:
     runs-on: windows-latest
     steps:
       - name: dump github context
