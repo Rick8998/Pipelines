@@ -22,7 +22,7 @@ jobs:
                 OWNER: ${{ github.event.repository.owner.login }}
                 REPO: ${{ github.event.repository.name }}
               run: |
-                headers = @{
+                $headers = @{
                     "Authorization" = "Bearer $env:GH_TOKEN"
                 }
                 $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues"
