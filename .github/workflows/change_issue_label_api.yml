@@ -18,6 +18,24 @@ jobs:
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         run: echo "Issue has a specific label"
 
+      - name: Remove label
+        if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
+        env:
+          GH_TOKEN: ${{secrets.MY_TOKEN}}
+          OWNER: ${{ github.event.repository.owner.login }}
+          REPO: ${{ github.event.repository.name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          NAME: ${{github.event.label.name}}
+        run: |
+          $headers = @{
+            "Authorization" = "Bearer $env:GH_TOKEN"
+          }
+          $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues/$env:ISSUE_NUMBER/labels/$env:NAME"
+          echo $uri
+          $body = @{
+            labels = @("under management")
+          } | ConvertTo-Json
+          Invoke-WebRequest -Uri $uri -Method DELETE -Headers $headers -Body $body
             
       - name: Add labels
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
