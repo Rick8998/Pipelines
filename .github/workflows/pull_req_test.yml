@@ -50,11 +50,14 @@ jobs:
                 $headers = @{
                     "Authorization" = "Bearer $env:GH_TOKEN"
                 }
-                $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/pulls/$env:PULL_NUMBER/comments"
+                $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/pulls/$env:PULL_NUMBER"
                 $body = @{
+                    title = $PULL_REQ_TITLE
                     body = " @$env:EVENT_AUTHOR you cannot make a pull request now
                             PULL REQUEST INFO:
                                 ID: $env:PULL_REQ_ID
                                 TITLE: $env:PULL_REQ_TITLE"
+                    state = "closed"
+                    labels = @("invalid")
                 } | ConvertTo-Json
                 Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
