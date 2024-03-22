@@ -32,10 +32,7 @@ jobs:
           }
           $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues/$env:ISSUE_NUMBER/labels/$env:NAME"
           echo $uri
-          $body = @{
-            labels = @("under management")
-          } | ConvertTo-Json
-          Invoke-WebRequest -Uri $uri -Method DELETE -Headers $headers -Body $body
+          Invoke-WebRequest -Uri $uri -Method DELETE -Headers $headers
             
       - name: Add labels
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
