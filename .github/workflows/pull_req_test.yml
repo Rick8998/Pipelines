@@ -30,8 +30,8 @@ jobs:
                     title = "Issue opened from pull request"
                     body = "You cannot make a pull request now
                             PULL REQUEST INFO:
-                                $env:PULL_REQ_ID
-                                $env:PULL_REQ_INFO"
+                                ID: $env:PULL_REQ_ID
+                                TITLE $env:PULL_REQ_INFO"
                     labels = @("invalid")
                 } | ConvertTo-Json
                 Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
