@@ -29,7 +29,7 @@ if __name__ == "__main__":
     
     path_to_file = sys.argv[1]
     write_on_file(path_to_file)
-
+#
 '''tmp_dir = "tmp"
 if not os.path.exists(tmp_dir):
     os.makedirs(tmp_dir, exist_ok=True)
