@@ -16,7 +16,10 @@ jobs:
             - name: Block pull request
               run: |
                 echo "This pull request ha been blocked"
+<<<<<<< Updated upstream
                 exit 1
+=======
+>>>>>>> Stashed changes
 
             - name: Open issue
               env:
