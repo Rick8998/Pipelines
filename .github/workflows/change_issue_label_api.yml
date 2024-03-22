@@ -8,7 +8,7 @@ defaults:
     shell: powershell
 
 jobs:
-  change-label:
+  delete-labels:
     runs-on: windows-latest
     steps:
       - name: dump github context
@@ -19,7 +19,7 @@ jobs:
         run: echo "Issue has a specific label"
 
             
-      - name: Comment labeled issue
+      - name: Delete labels
         if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         env:
           GH_TOKEN: ${{secrets.GITHUB_TOKEN}}
@@ -27,6 +27,11 @@ jobs:
           REPO: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
+            echo $OWNER
+            echo $REPO
+            echo $ISSUE_NUMBER
+
+
             # GitHub CLI api
             # https://cli.github.com/manual/gh_api
             
