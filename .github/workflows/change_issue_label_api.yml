@@ -27,13 +27,12 @@ jobs:
           REPO: ${{ github.event.repository.name }}
           ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
-          $headers = @{
-            "Accept" = "application/vnd.github+json"
-            "Authorization" = "Bearer $GH_TOKEN"
-            "X-GitHub-Api-Version" = "2022-11-28"
-          }
-          $uri = "https://api.github.com/repos/$OWNER/$REPO/issues/$ISSUE_NUMBER/labels"
-          $body = @{
-            labels = @("bug", "enhancement")
-          } | ConvertTo-Json
-          Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
+          # GitHub CLI api
+          # https://cli.github.com/manual/gh_api
+          
+          gh api \
+            --method POST \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            /repos/$OWNER/$REPO/issues/$ISSUE_NUMBER/labels \
+            -f "labels[]=bug" -f "labels[]=enhancement" 
