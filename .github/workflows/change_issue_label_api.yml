@@ -33,6 +33,6 @@ jobs:
           $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues/$env:ISSUE_NUMBER/labels"
           echo $uri
           $body = @{
-            labels = @("bug", "enhancement")
+            labels = @("under management")
           } | ConvertTo-Json
           Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
