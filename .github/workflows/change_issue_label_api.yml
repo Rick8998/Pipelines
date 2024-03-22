@@ -10,16 +10,15 @@ defaults:
 jobs:
   remove-add-labels:
     runs-on: windows-latest
+    if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
     steps:
       - name: dump github context
         run: echo '${{ toJson(github.event) }}'
 
       - name: Check issue label
-        if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         run: echo "Issue has a specific label"
 
       - name: Remove label
-        if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         env:
           GH_TOKEN: ${{secrets.MY_TOKEN}}
           OWNER: ${{ github.event.repository.owner.login }}
@@ -35,7 +34,6 @@ jobs:
           Invoke-WebRequest -Uri $uri -Method DELETE -Headers $headers
             
       - name: Add labels
-        if: github.event.action == 'labeled' && github.event.label.name == 'help wanted'
         env:
           GH_TOKEN: ${{secrets.MY_TOKEN}}
           OWNER: ${{ github.event.repository.owner.login }}
@@ -49,5 +47,22 @@ jobs:
           echo $uri
           $body = @{
             labels = @("under management")
+          } | ConvertTo-Json
+          Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
+
+      - name: Add comment
+        env:
+          GH_TOKEN: ${{secrets.MY_TOKEN}}
+          OWNER: ${{ github.event.repository.owner.login }}
+          REPO: ${{ github.event.repository.name }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+        run: |
+          $headers = @{
+            "Authorization" = "Bearer $env:GH_TOKEN"
+          }
+          $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues/$env:ISSUE_NUMBER/comments"
+          echo $uri
+          $body = @{
+            body = ":bangbang: :clock130: Your issue was noticed and taken care of :heavy_check_mark:"
           } | ConvertTo-Json
           Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
