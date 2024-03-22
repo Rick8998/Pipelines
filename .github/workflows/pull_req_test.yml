@@ -29,7 +29,7 @@ jobs:
                 $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/issues"
                 $body = @{
                     title = "Issue opened from pull request"
-                    body = " @$env:EVENT_AUTHOR You cannot make a pull request now
+                    body = " @$env:EVENT_AUTHOR you cannot make a pull request now
                             PULL REQUEST INFO:
                                 ID: $env:PULL_REQ_ID
                                 TITLE $env:PULL_REQ_INFO"
@@ -45,7 +45,7 @@ jobs:
                 PULL_REQ_ID: ${{github.event.pull_request.id}}
                 PULL_NUMBER: ${{github.event.pull_request.number}}
                 PULL_REQ_TITLE: ${{github.event.pull_request.title}}
-                
+                EVENT_AUTHOR: ${{github.event.pull_request.user.login}}
               run: |
                 $headers = @{
                     "Authorization" = "Bearer $env:GH_TOKEN"
@@ -53,7 +53,7 @@ jobs:
                 $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/pulls/$env:PULL_NUMBER"
                 $body = @{
                     title = $PULL_REQ_TITLE
-                    body = "You cannot make a pull request now
+                    body = " @$env:EVENT_AUTHOR you cannot make a pull request now
                             PULL REQUEST INFO:
                                 ID: $env:PULL_REQ_ID
                                 TITLE: $env:PULL_REQ_TITLE"
