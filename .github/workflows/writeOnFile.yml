@@ -15,7 +15,7 @@ jobs:
       - name: Run Script
         run: |
           cd scripts
-          .\writeOnFile.exe tmp/test.log
+          .\writeOnFile.exe tmp/test.txt
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
