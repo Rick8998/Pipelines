@@ -1,0 +1,22 @@
+name: Close every pull request
+
+on:
+  pull_request:
+    types: [labeled]
+    branches:
+        - main
+defaults:
+  run:
+    shell: powershell
+
+jobs:
+    create-exe-artifact:
+        runs-on: windows-latest
+        if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
+        steps:
+            - name: Dump github context
+              run: echo '${{ toJson(github.event) }}'
+
+            - name: Build exe
+              run: |
+                Write-Host "Current directory: $PWD"
