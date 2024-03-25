@@ -67,6 +67,6 @@ jobs:
               if: ${{success()}}
               uses: actions/upload-artifact@v4
               with:
-                name: my-art
+                name: exe-art
                 path: ${{github.workspace}}/scripts/writeOnFile.exe
                 retention-days: 1
