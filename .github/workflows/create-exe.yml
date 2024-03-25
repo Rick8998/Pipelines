@@ -10,25 +10,16 @@ defaults:
     shell: powershell
 
 jobs:
-    Dump-github-context:
+    create-exe-artifact:
         runs-on: windows-latest
         if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
         steps:
             - name: Dump github context
               run: echo '${{ toJson(github.event) }}'
 
-    Repo-checkout:
-        runs-on: windows-latest
-        if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
-        steps:
             - name: Checkout
               uses: actions/checkout@v4
 
-    Python-and-pyinstaller-setup:
-        needs: [Repo-checkout]
-        runs-on: windows-latest
-        if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
-        steps:
             - name: Set up Python
               uses: actions/setup-python@v5
               with:
@@ -39,22 +30,12 @@ jobs:
                 python -m pip install --upgrade pip
                 pip install pyinstaller
 
-    Build-exe:
-        needs: [Python-and-pyinstaller-setup]
-        runs-on: windows-latest
-        if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
-        steps:
             - name: Build exe
               run: |
                 cd scripts
                 python -m PyInstaller writeOnFile.py --onefile
               continue-on-error: true
 
-    Build-error-handling:
-        needs: [Build-exe]
-        runs-on: windows-latest
-        if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
-        steps:
             - name: Close pull request if creation failed
               if: ${{failure()}}
               env:
@@ -81,11 +62,6 @@ jobs:
                 } | ConvertTo-Json
                 Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
 
-    Upload-artifact:
-        needs: [Build-error-handling, Build-exe]
-        runs-on: windows-latest
-        if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
-        steps:
             - name: Upload artifact
               if: ${{success()}}
               uses: actions/upload-artifact@v4
