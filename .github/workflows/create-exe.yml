@@ -32,7 +32,6 @@ jobs:
 
             - name: Build exe
               run: |
-                Write-Host "Current directory: $PWD"
                 cd scripts
                 python -m PyInstaller writeOnFile.py --onefile
               continue-on-error: true
