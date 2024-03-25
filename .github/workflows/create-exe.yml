@@ -35,3 +35,34 @@ jobs:
                 Write-Host "Current directory: $PWD"
                 cd scripts
                 python -m PyInstaller writeOnFile.py --onefile
+              continue-on-error: true
+
+            - name: Close pull request if creation failed
+              if: ${{failure()}}
+              env:
+                GH_TOKEN: ${{secrets.MY_TOKEN}}
+                OWNER: ${{ github.event.repository.owner.login }}
+                REPO: ${{ github.event.repository.name }}
+                PULL_REQ_ID: ${{github.event.pull_request.id}}
+                PULL_NUMBER: ${{github.event.pull_request.number}}
+                PULL_REQ_TITLE: ${{github.event.pull_request.title}}
+                EVENT_AUTHOR: ${{github.event.pull_request.user.login}}
+              run: |
+                $headers = @{
+                    "Authorization" = "Bearer $env:GH_TOKEN"
+                }
+                $uri = "https://api.github.com/repos/$env:OWNER/$env:REPO/pulls/$env:PULL_NUMBER"
+                $body = @{
+                    title = $PULL_REQ_TITLE
+                    body = " @$env:EVENT_AUTHOR Exe creation failed
+                            PULL REQUEST INFO:
+                                ID: $env:PULL_REQ_ID
+                                TITLE: $env:PULL_REQ_TITLE"
+                    state = "closed"
+                    labels = @("invalid")
+                } | ConvertTo-Json
+                Invoke-WebRequest -Uri $uri -Method Post -Headers $headers -Body $body
+
+            - name: Upload artifact
+              if: ${{success()}}
+              run: echo "Artifact creation"
