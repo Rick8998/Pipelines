@@ -17,6 +17,9 @@ jobs:
             - name: Dump github context
               run: echo '${{ toJson(github.event) }}'
 
+            - name: Checkout
+              uses: actions/checkout@v4
+
             - name: Set up Python
               uses: actions/setup-python@v5
               with:
