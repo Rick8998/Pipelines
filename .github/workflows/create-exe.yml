@@ -10,13 +10,16 @@ defaults:
     shell: powershell
 
 jobs:
-    create-exe-artifact:
+    dump-github-context:
         runs-on: windows-latest
         if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
         steps:
             - name: Dump github context
               run: echo '${{ toJson(github.event) }}'
-
+    create-exe-artifact:
+        runs-on: windows-latest
+        if: github.event.action == 'labeled' && github.event.label.name == 'exe-creation'
+        steps:
             - name: Checkout
               uses: actions/checkout@v4
 
