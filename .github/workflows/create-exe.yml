@@ -65,4 +65,8 @@ jobs:
 
             - name: Upload artifact
               if: ${{success()}}
-              run: echo "Artifact creation"
+              uses: actions/upload-artifact@v4
+              with:
+                name: my-art
+                path: ${{github.workspace}}/scripts/writeOnFile.exe
+                retention-days: 1
