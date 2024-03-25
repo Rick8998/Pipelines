@@ -1,4 +1,4 @@
-name: Close every pull request
+name: Build exe from py
 
 on:
   pull_request:
